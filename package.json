@@ -1,0 +1,21 @@
+{
+	"name": "n3bot",
+	"version": "1.0.0",
+	"description": "The Discord Bot for the N3 Server",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"demo": "nodemon app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "n3bot"
+	},
+	"author": "Patrick Auri",
+	"license": "ISC",
+	"dependencies": {
+		"discord.js": "^12.3.1",
+		"dotenv": "^8.2.0",
+		"request": "^2.88.2"
+	}
+}
