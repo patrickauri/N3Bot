@@ -81,6 +81,15 @@ const AddAndRemoveRoles = (msg, addRole, removeRoles) => {
 	AddRole(msg, addRole);
 };
 
+const Help = (msg) => {
+	const MDCode = (t) => {
+		return '```' + t + '```';
+	};
+	const reply = `
+	> **Game Roles**\n${MDCode('Among Us: .amongus')}`;
+	msg.channel.send(reply);
+};
+
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}`);
 });
@@ -89,7 +98,7 @@ client.on('message', (msg) => {
 	if (isCommand(msg.content)) {
 		const cmd = parseCommand(msg.content);
 		if (cmd.command === 'help') {
-			//Help
+			Help(msg);
 		}
 		// Only perform role changes in the bot channel
 		if (msg.channel.id === botChannel) {
