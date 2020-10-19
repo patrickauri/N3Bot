@@ -1,14 +1,13 @@
 const Discord = require('discord.js');
 const request = require('request');
 require('dotenv').config();
+const roles = require('./roles.json');
 const client = new Discord.Client();
 
 const token = process.env.TOKEN;
 let msg = null;
 const botChannel = '759888425292922910';
 const welcomeChannel = '585141902311948292';
-
-const roles = [ [ 'amongus', '759805495199400006' ] ];
 
 const RandomArrayElement = (a) => {
 	return a[Math.floor(Math.random() * a.length)];
@@ -85,12 +84,18 @@ const Help = (msg) => {
 	const MDCode = (t) => {
 		return '```' + t + '```';
 	};
-	const reply = `
-	> **Game Roles**\n${MDCode('Among Us: .amongus')}`;
+	let reply = `
+	> **Roles**\nWrite .role followed by the name of the role. Supported roles:\n`;
+	let rolesList = '';
+	roles.forEach(e => {
+		rolesList += `${e[0]} `
+	})
+	reply += MDCode(rolesList);
 	msg.channel.send(reply);
 };
 
 client.on('ready', () => {
+	console.log(roles);
 	console.log(`Logged in as ${client.user.tag}`);
 });
 
@@ -103,8 +108,18 @@ client.on('message', (msg) => {
 		// Only perform role changes in the bot channel
 		if (msg.channel.id === botChannel) {
 			switch (cmd.command) {
-				case 'amongus':
-					AddRole(msg, 'amongus');
+				case 'role':
+					const errorMsg = 'You need to specify a role. Write .help for more information.';
+					const gameRole = roles.find((e) => {
+						return e[0] === cmd.content;
+					});
+					if (gameRole === undefined)
+					{
+						msg.reply(errorMsg);
+					}
+					else{
+						AddRole(msg, gameRole[0]);
+					}
 					break;
 			}
 		}
