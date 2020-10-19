@@ -95,7 +95,6 @@ const Help = (msg) => {
 };
 
 client.on('ready', () => {
-	console.log(roles);
 	console.log(`Logged in as ${client.user.tag}`);
 });
 
